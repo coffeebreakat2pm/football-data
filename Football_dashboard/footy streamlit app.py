@@ -47,8 +47,19 @@ else:
     st.error("Please select an available league.")
 
 
+if df is not None:
+    tab1, tab2, tab3, tab4 = st.tabs(["xG Outperformer","xA Outperformer","Best finisher","MVP"])
 
+    with tab1:
+        st.scatter_chart(df, x="xg", y="goals")
 
+    with tab2:
+        st.scatter_chart(df, x="xa", y="assists")
 
-tab1, tab2, tab3, tab4 = st.tabs(["xG Outperformer","xA Outperformer","Best finisher","MVP"])
+    with tab3:
+        st.scatter_chart(df, x="shots", y="goals")
+
+    with tab4:
+        st.scatter_chart(df, x="xg_chain", y="xg_buildup")
+
 
