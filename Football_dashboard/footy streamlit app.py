@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+from pathlib import Path
 
 
 st.title("Top 5 European leagues - Players Data Analysis")
@@ -15,11 +16,13 @@ st.markdown("""
 
 
 
-Premier_League = pd.read_csv("eng_premier_league_players_2015-16_to_2025-26.csv")
-La_liga = pd.read_csv("esp_la_liga_players_2015-16_to_2025-26.csv")
-Serie_A = pd.read_csv("ita_serie_a_players_2015-16_to_2025-26.csv")
-Bundesliga = pd.read_csv("ger_bundesliga_players_2015-16_to_2025-26.csv")
-Ligue_1 = pd.read_csv("fra_ligue_1_players_2015-16_to_2025-26.csv")
+BASE_DIR = Path(__file__).resolve().parent
+
+Premier_League = pd.read_csv(BASE_DIR / "eng_premier_league_players_2015-16_to_2025-26.csv")
+La_liga = pd.read_csv(BASE_DIR / "esp_la_liga_players_2015-16_to_2025-26.csv")
+Serie_A = pd.read_csv(BASE_DIR / "ita_serie_a_players_2015-16_to_2025-26.csv")
+Bundesliga = pd.read_csv(BASE_DIR / "ger_bundesliga_players_2015-16_to_2025-26.csv")
+Ligue_1 = pd.read_csv(BASE_DIR / "fra_ligue_1_players_2015-16_to_2025-26.csv")
 
 
 all_leagues = ["Premier League", "La Liga", "Serie A", "Bundesliga", "Ligue 1"]
@@ -30,23 +33,22 @@ with st.container(border = True):
                             index = None,  
                             accept_new_options=False)
 
-for league in all_leagues:
-    if leagues == "Premier League":
-        df = pd.DataFrame(Premier_League)
-    elif leagues == "La Liga":
-        df = pd.DataFrame(La_liga)
-    elif leagues == "Serie A":
-        df = pd.DataFrame(Serie_A)
-    elif leagues == "Bundesliga":
-        df = pd.DataFrame(Bundesliga)
-    elif leagues == "Ligue 1":
-        df = pd.DataFrame(Ligue_1)
+if leagues == "Premier League":
+    df = Premier_League
+elif leagues == "La Liga":
+    df = La_liga
+elif leagues == "Serie A":
+    df = Serie_A
+elif leagues == "Bundesliga":
+    df = Bundesliga
+elif leagues == "Ligue 1":
+    df = Ligue_1
 else:
-        st.error("Please select an available league.")
+    st.error("Please select an available league.")
 
 
 
-xG_outperformer = pd.DataFrame()
+
 
 tab1, tab2, tab3, tab4 = st.tabs(["xG Outperformer","xA Outperformer","Best finisher","MVP"])
 
