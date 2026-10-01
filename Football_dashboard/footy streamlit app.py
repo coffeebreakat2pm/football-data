@@ -33,6 +33,7 @@ with st.container(border = True):
                             index = None,  
                             accept_new_options=False)
 
+df = None
 if leagues == "Premier League":
     df = Premier_League
 elif leagues == "La Liga":
